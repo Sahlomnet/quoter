@@ -8,31 +8,53 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * http://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?cliente=23400&marca=ACTECK&porcentaje=30&subgpo=1&tc=1&MonedaPesos=1&tipo=1&depto=1&dt=1&dc=1&exist=4&promos=1&TipoProducto=1&trans=1&dimen=1&upc=1
      */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('clave_cva')->unique();
-            $table->string('codigo_fabricante')->nullable();
-            $table->string('descripcion');
-        
-            $table->foreignId('manufacturer_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('group_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('subgroup_id')->nullable()->constrained()->nullOnDelete();
-        
-            $table->decimal('precio', 10, 2);
-            $table->integer('existencia_sucursal')->nullable();
-            $table->integer('existencia_cd')->nullable();
-            $table->integer('existencia_total')->nullable();
-            $table->text('ficha_tecnica')->nullable();
-            $table->text('ficha_comercial')->nullable();
-            $table->string('imagen_url')->nullable();
-            $table->string('garantia')->nullable();
-            $table->string('tipo_producto')->nullable();
+            $table->string('clave_cva')->unique(); //clave
             $table->string('upc')->nullable();
-            $table->string('dimensiones')->nullable();
-            $table->string('peso')->nullable();
+            $table->boolean('esd'); // EsProductoESD
+            $table->string('codigo_fabricante')->nullable(); //sku
+            $table->string('descripcion'); //descripcion
+            $table->string('solucion'); //solucion
+        
+            $table->foreignId('group_id')->nullable()->constrained()->nullOnDelete(); //grupo
+            $table->foreignId('subgroup_id')->nullable()->constrained()->nullOnDelete(); //subgrupo
+            $table->foreignId('manufacturer_id')->nullable()->constrained()->nullOnDelete(); //marca
+
+
+            $table->string('garantia')->nullable(); //garantia
+            $table->string('clase')->nullable(); //
+            $table->integer('existencia_sucursal')->nullable(); //disponible
+            $table->integer('en_transito')->nullable(); //en transito
+            $table->decimal('precio', 10, 2); //precio
+            $table->string('moneda')->nullable(); //moneda
+            $table->text('ficha_tecnica')->nullable(); //ficha tecnica
+            $table->text('ficha_comercial')->nullable(); //ficha comercial
+            $table->string('imagen_url')->nullable(); //imagen
+            $table->integer('existencia_cd')->nullable(); //disponibleCD
+            $table->decimal('tipo_cambio', 10, 2); //tipocambio
+            $table->timestamp('fecha_tipo_cambio')->nullable(); //fechaactualizatipoc
+            $table->string('total_descuento')->nullable(); //TotalDescuento
+            $table->string('moneda_descuento')->nullable(); //MonedaDescuento
+            $table->decimal('precio_descuento', 10, 2); //PrecioDescuento decimal
+            $table->string('moneda_precio_descuento')->nullable(); //MonedaPrecioDescuento
+            $table->string('clave_promocion')->nullable(); //ClavePromocion
+            $table->string('descripcion_promocion')->nullable(); //DescripcionPromocion
+            $table->string('vencimiento_promocion')->nullable(); //VencimientoPromocion 
+            $table->string('disponible_en_promocion')->nullable(); //DisponibleEnPromocion 
+            $table->string('tipo_producto')->nullable(); //TipoProducto
+            $table->integer('id_departamento')->nullable(); //IdDepartamento
+            $table->string('departamento')->nullable(); //Departamento
+            $table->string('producto_paquete')->nullable(); //ProductoPaquete
+            $table->string('componentes')->nullable(); //componentes
+            $table->string('dimensiones')->nullable(); //dimensiones (mts)
+            $table->string('peso')->nullable(); //peso (kg)
+
+
         
             $table->timestamps();
         });
