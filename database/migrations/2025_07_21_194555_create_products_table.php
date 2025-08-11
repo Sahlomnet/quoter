@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('clave_cva')->unique(); //clave
             $table->string('upc')->nullable();
-            $table->boolean('esd'); // EsProductoESD
+            $table->boolean('esd')->nullable(); // EsProductoESD
             $table->string('codigo_fabricante')->nullable(); //sku
-            $table->string('descripcion'); //descripcion
-            $table->string('solucion'); //solucion
+            $table->string('descripcion')->nullable(); //descripcion
+            $table->string('solucion')->nullable(); //solucion
         
             $table->foreignId('group_id')->nullable()->constrained()->nullOnDelete(); //grupo
             $table->foreignId('subgroup_id')->nullable()->constrained()->nullOnDelete(); //subgrupo
@@ -30,17 +30,17 @@ return new class extends Migration
             $table->string('clase')->nullable(); //
             $table->integer('existencia_sucursal')->nullable(); //disponible
             $table->integer('en_transito')->nullable(); //en transito
-            $table->decimal('precio', 10, 2); //precio
+            $table->decimal('precio', 10, 2)->nullable(); //precio
             $table->string('moneda')->nullable(); //moneda
             $table->text('ficha_tecnica')->nullable(); //ficha tecnica
             $table->text('ficha_comercial')->nullable(); //ficha comercial
             $table->string('imagen_url')->nullable(); //imagen
             $table->integer('existencia_cd')->nullable(); //disponibleCD
-            $table->decimal('tipo_cambio', 10, 2); //tipocambio
+            $table->decimal('tipo_cambio', 10, 2)->nullable(); //tipocambio
             $table->timestamp('fecha_tipo_cambio')->nullable(); //fechaactualizatipoc
             $table->string('total_descuento')->nullable(); //TotalDescuento
             $table->string('moneda_descuento')->nullable(); //MonedaDescuento
-            $table->decimal('precio_descuento', 10, 2); //PrecioDescuento decimal
+            $table->decimal('precio_descuento', 10, 2)->nullable(); //PrecioDescuento decimal
             $table->string('moneda_precio_descuento')->nullable(); //MonedaPrecioDescuento
             $table->string('clave_promocion')->nullable(); //ClavePromocion
             $table->string('descripcion_promocion')->nullable(); //DescripcionPromocion

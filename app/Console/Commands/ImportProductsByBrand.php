@@ -49,10 +49,24 @@ class ImportProductsByBrand extends Command
     {
         $brandId = $this->argument('brandId');
 
-        // $url = "https://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?marca={$brandId}";
-        $url = "http://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?cliente=23400&marca={$brandId}&porcentaje=30&subgpo=1&tc=1&MonedaPesos=1&tipo=1&depto=1&dt=1&dc=1&exist=4&promos=1&TipoProducto=1&trans=1&dimen=1&upc=1";
+        // Verificar si es numérico (ID) o texto (nombre)
+        if (is_numeric($brandId)) {
+            $manufacturer = Manufacturer::find($brandId);
+            if (!$manufacturer) {
+                $this->error("No se encontró un fabricante con ID {$brandId}");
+                return;
+            }
+            $marcaNombre = $manufacturer->descripcion;
+        } else {
+            $marcaNombre = $brandId;
+        }
+
+        $url = "http://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?cliente=23400&marca={$marcaNombre}&porcentaje=30&subgpo=1&tc=1&MonedaPesos=1&tipo=1&depto=1&dt=1&dc=1&exist=4&promos=1&TipoProducto=1&trans=1&dimen=1&upc=1";
 
         // dd($url);
+        // dd($brandId);
+        // dd($manufacturer);
+        // dd($marcaNombre);
 
         $this->info("Importando productos para la marca: {$brandId}");
         
@@ -82,8 +96,10 @@ class ImportProductsByBrand extends Command
                     'codigo_fabricante' => self::nullIfEmpty((string) $item->codigo_fabricante),
                     'descripcion' => (string) $item->descripcion,
                     'solucion' => (string) $item->solucion,
+
                     'group_id' => $this->findGroupId((string) $item->grupo),
                     'subgroup_id' => $this->findSubgroupId((string) $item->subgrupo),
+                    
                     'manufacturer_id' => $this->findManufacturerId((string) $item->marca),
                     'garantia' => self::nullIfEmpty((string) $item->garantia),
                     'clase' => self::nullIfEmpty((string) $item->clase),
@@ -96,7 +112,7 @@ class ImportProductsByBrand extends Command
                     'imagen_url' => self::nullIfEmpty((string) $item->imagen),
                     'existencia_cd' => (int) $item->disponibleCD ?: 0,
                     'tipo_cambio' => (float) $item->tipocambio ?: 0,
-                    'fecha_tipo_cambio' => self::nullIfEmpty((string) $item->fechaactualizatipoc),
+                    'fecha_tipo_cambio' => $this->convertirFechaATimestamp((string) $item->fechaactualizatipoc),
                     'total_descuento' => self::nullIfEmpty((string) $item->TotalDescuento),
                     'moneda_descuento' => self::nullIfEmpty((string) $item->MonedaDescuento),
                     'precio_descuento' => self::toFloatOrNull($item->PrecioDescuento),
@@ -119,18 +135,25 @@ class ImportProductsByBrand extends Command
         $this->info("Importación de productos para la marca {$brandId} finalizada.");
     }
 
-    private function findGroupId($clave)
+    private function findGroupId($descripcion)
     {
-        return Group::where('clave', $clave)->value('id');
+        return Group::where('descripcion', $descripcion)->value('id');
     }
 
-    private function findSubgroupId($clave)
+    private function findSubgroupId($descripcion)
     {
-        return Subgroup::where('clave', $clave)->value('id');
+        return Subgroup::where('descripcion', $descripcion)->value('id');
     }
 
     private function findManufacturerId($nombre)
     {
-        return Manufacturer::where('nombre', $nombre)->value('id');
+        // dd($nombre);
+        return Manufacturer::where('descripcion', $nombre)->value('id');
+    }
+
+    private function convertirFechaATimestamp($fecha) {
+        // $fecha viene como "dd/mm/yyyy hh:mm:ss"
+        $fechaCarbon = \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $fecha);
+        return $fechaCarbon; // Devuelve timestamp UNIX
     }
 }

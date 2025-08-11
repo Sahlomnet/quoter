@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -11,7 +12,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('id')->get(); // 100 productos por página
+        return view('admin.productos.index', compact('products'));
+
+        // $manufacturers = Manufacturer::orderBy('descripcion')->get();
+        // return view('admin.marcas.index', compact('manufacturers'));
     }
 
     /**
