@@ -29,14 +29,14 @@
                     <tr>
                         <th class="text-center">Id</th>
                         <th class="text-center">Clave</th>
-                        <th class="text-center">SKU /// UPC</th>
+                        <!-- <th class="text-center">SKU /// UPC</th> -->
                         <th class="text-center">Imágen</th>
                         <th class="text-center">Descripción</th>
                         <th class="text-center">Precio</th>
                         <th class="text-center">Precio Descuento</th>
-                        <th class="text-center">Sucursal</th>
+                        <!-- <th class="text-center">Sucursal</th>
                         <th class="text-center">Tránsito</th>
-                        <th class="text-center">CEDIS</th>
+                        <th class="text-center">CEDIS</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -44,14 +44,14 @@
                         <tr>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->id }}</a></td>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->clave_cva }}</a></td>
-                            <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->codigo_fabricante }}{{ ' /// ' . $product->upc ?? '' }}</a></td>
+                            <!-- <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->codigo_fabricante }}{{ ' /// ' . $product->upc ?? '' }}</a></td> -->
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}"><img src="{{ $product->imagen_url }}"></a></td>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->descripcion }}</a></td>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ '$ ' }}{{ number_format($product->precio, 2, '.', ',') }}</a></td>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ '$ ' }}{{ number_format($product->precio_descuento, 2, '.', ',') }}</a></td>
-                            <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->existencia_sucursal }}</a></td>
+                            <!-- <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->existencia_sucursal }}</a></td>
                             <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->en_transito }}</a></td>
-                            <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->existencia_cd }}</a></td>
+                            <td  class="text-center list-link"><a href="{{route('productos.show', $product->id)}}">{{ $product->existencia_cd }}</a></td> -->
                             <!-- <td>
                                 <a href="{{ route('productos.edit', $product) }}" class="btn btn-sm btn-warning">Editar</a>
                                 <form action="{{ route('productos.destroy', $product) }}" method="POST" style="display:inline;">
@@ -66,14 +66,14 @@
                     <tr>
                         <th class="text-center">Id</th>
                         <th class="text-center">Clave</th>
-                        <th class="text-center">SKU /// UPC</th>
+                        <!-- <th class="text-center">SKU /// UPC</th> -->
                         <th class="text-center">Imágem</th>
                         <th class="text-center">Descripción</th>
                         <th class="text-center">Precio</th>
                         <th class="text-center">Precio Descuento</th>
-                        <th class="text-center">Sucursal</th>
+                        <!-- <th class="text-center">Sucursal</th>
                         <th class="text-center">Tránsito</th>
-                        <th class="text-center">CEDIS</th>
+                        <th class="text-center">CEDIS</th> -->
                     </tr>
                 </tfoot>
             </table>
@@ -156,7 +156,7 @@
                         className: 'btn btn-secondary'
                     }
                 ],
-                "lengthMenu": [[-1, 10, 25, 100], ["Todos", 10, 25, 100]],
+                "lengthMenu": [[100, 500, 1000, -1], [100, 500, 1000, "Todos"]],
                 "language":
                 {
                     "search":       "Buscar",
