@@ -86,16 +86,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer009->descripcion = "APPLE";
         $manufacturer009->save();
 
-        $manufacturer010 = new Manufacturer();
-        $manufacturer010->clave = "9";
-        $manufacturer010->descripcion = "ASPEL";
-        $manufacturer010->save();
-
-        $manufacturer011 = new Manufacturer();
-        $manufacturer011->clave = "301";
-        $manufacturer011->descripcion = "ASPHALT";
-        $manufacturer011->save();
-
         $manufacturer012 = new Manufacturer();
         $manufacturer012->clave = "280";
         $manufacturer012->descripcion = "ASROCK";
@@ -111,11 +101,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer014->descripcion = "ASUS OEM";
         $manufacturer014->save();
 
-        $manufacturer015 = new Manufacturer();
-        $manufacturer015->clave = "180";
-        $manufacturer015->descripcion = "AVIGILON";
-        $manufacturer015->save();
-
         $manufacturer016 = new Manufacturer();
         $manufacturer016->clave = "291";
         $manufacturer016->descripcion = "BACKDROP";
@@ -126,11 +111,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer017->descripcion = "BALAM RUSH";
         $manufacturer017->save();
 
-        $manufacturer018 = new Manufacturer();
-        $manufacturer018->clave = "164";
-        $manufacturer018->descripcion = "BAREBONES - GHIA";
-        $manufacturer018->save();
-
         $manufacturer019 = new Manufacturer();
         $manufacturer019->clave = "311";
         $manufacturer019->descripcion = "BASEUS";
@@ -140,11 +120,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer020->clave = "10";
         $manufacturer020->descripcion = "BENQ";
         $manufacturer020->save();
-
-        $manufacturer021 = new Manufacturer();
-        $manufacturer021->clave = "11";
-        $manufacturer021->descripcion = "BIOSTAR";
-        $manufacturer021->save();
 
         $manufacturer022 = new Manufacturer();
         $manufacturer022->clave = "98";
@@ -161,16 +136,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer024->descripcion = "BIWIN HP";
         $manufacturer024->save();
 
-        $manufacturer025 = new Manufacturer();
-        $manufacturer025->clave = "185";
-        $manufacturer025->descripcion = "BLACK ECCO";
-        $manufacturer025->save();
-
-        $manufacturer026 = new Manufacturer();
-        $manufacturer026->clave = "312";
-        $manufacturer026->descripcion = "BOB ESPONJA";
-        $manufacturer026->save();
-
         $manufacturer027 = new Manufacturer();
         $manufacturer027->clave = "279";
         $manufacturer027->descripcion = "BROBOTIX";
@@ -186,11 +151,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer029->descripcion = "CANON";
         $manufacturer029->save();
 
-        $manufacturer030 = new Manufacturer();
-        $manufacturer030->clave = "179";
-        $manufacturer030->descripcion = "CASIO";
-        $manufacturer030->save();
-
         $manufacturer031 = new Manufacturer();
         $manufacturer031->clave = "15";
         $manufacturer031->descripcion = "CDP";
@@ -200,16 +160,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer032->clave = "106";
         $manufacturer032->descripcion = "CISCO";
         $manufacturer032->save();
-
-        $manufacturer033 = new Manufacturer();
-        $manufacturer033->clave = "161";
-        $manufacturer033->descripcion = "CITIZEN";
-        $manufacturer033->save();
-
-        $manufacturer034 = new Manufacturer();
-        $manufacturer034->clave = "265";
-        $manufacturer034->descripcion = "CLOUD CVA";
-        $manufacturer034->save();
 
         $manufacturer035 = new Manufacturer();
         $manufacturer035->clave = "17";
@@ -221,11 +171,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer036->descripcion = "CONDUMEX";
         $manufacturer036->save();
 
-        $manufacturer037 = new Manufacturer();
-        $manufacturer037->clave = "148";
-        $manufacturer037->descripcion = "CONSUMO INTERNO";
-        $manufacturer037->save();
-
         $manufacturer038 = new Manufacturer();
         $manufacturer038->clave = "126";
         $manufacturer038->descripcion = "COOLER MASTER";
@@ -235,16 +180,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer039->clave = "298";
         $manufacturer039->descripcion = "CORSAIR";
         $manufacturer039->save();
-
-        $manufacturer040 = new Manufacturer();
-        $manufacturer040->clave = "303";
-        $manufacturer040->descripcion = "CREALITY";
-        $manufacturer040->save();
-
-        $manufacturer041 = new Manufacturer();
-        $manufacturer041->clave = "154";
-        $manufacturer041->descripcion = "CRUCIAL";
-        $manufacturer041->save();
 
         $manufacturer042 = new Manufacturer();
         $manufacturer042->clave = "102";
@@ -286,11 +221,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer049->descripcion = "ECS";
         $manufacturer049->save();
 
-        $manufacturer050 = new Manufacturer();
-        $manufacturer050->clave = "26";
-        $manufacturer050->descripcion = "ENCORE";
-        $manufacturer050->save();
-
         $manufacturer051 = new Manufacturer();
         $manufacturer051->clave = "27";
         $manufacturer051->descripcion = "EPSON";
@@ -316,30 +246,10 @@ class ManufacturersSeeder extends Seeder
         $manufacturer055->descripcion = "FUJITSU";
         $manufacturer055->save();
 
-        $manufacturer056 = new Manufacturer();
-        $manufacturer056->clave = "188";
-        $manufacturer056->descripcion = "GABINETES AIO - GHIA";
-        $manufacturer056->save();
-
-        $manufacturer057 = new Manufacturer();
-        $manufacturer057->clave = "189";
-        $manufacturer057->descripcion = "GABINETES INWIN - GHIA";
-        $manufacturer057->save();
-
-        $manufacturer058 = new Manufacturer();
-        $manufacturer058->clave = "163";
-        $manufacturer058->descripcion = "GABINETES KME - GHIA";
-        $manufacturer058->save();
-
         $manufacturer059 = new Manufacturer();
         $manufacturer059->clave = "315";
         $manufacturer059->descripcion = "GAME FACTOR";
         $manufacturer059->save();
-
-        $manufacturer060 = new Manufacturer();
-        $manufacturer060->clave = "29";
-        $manufacturer060->descripcion = "GENIUS";
-        $manufacturer060->save();
 
         $manufacturer061 = new Manufacturer();
         $manufacturer061->clave = "73";
@@ -356,11 +266,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer063->descripcion = "GRANDSTREAM";
         $manufacturer063->save();
 
-        $manufacturer064 = new Manufacturer();
-        $manufacturer064->clave = "260";
-        $manufacturer064->descripcion = "HAI";
-        $manufacturer064->save();
-
         $manufacturer065 = new Manufacturer();
         $manufacturer065->clave = "258";
         $manufacturer065->descripcion = "HEWLETT PACKARD ENTERPRISE";
@@ -370,11 +275,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer066->clave = "210";
         $manufacturer066->descripcion = "HIKVISION";
         $manufacturer066->save();
-
-        $manufacturer067 = new Manufacturer();
-        $manufacturer067->clave = "239";
-        $manufacturer067->descripcion = "HILOOK";
-        $manufacturer067->save();
 
         $manufacturer068 = new Manufacturer();
         $manufacturer068->clave = "271";
@@ -396,40 +296,20 @@ class ManufacturersSeeder extends Seeder
         $manufacturer071->descripcion = "HP";
         $manufacturer071->save();
 
-        $manufacturer072 = new Manufacturer();
-        $manufacturer072->clave = "197";
-        $manufacturer072->descripcion = "HPFS";
-        $manufacturer072->save();
-
         $manufacturer073 = new Manufacturer();
         $manufacturer073->clave = "182";
         $manufacturer073->descripcion = "HUAWEI";
         $manufacturer073->save();
-
-        $manufacturer074 = new Manufacturer();
-        $manufacturer074->clave = "253";
-        $manufacturer074->descripcion = "HUAWEI/CONSUMO";
-        $manufacturer074->save();
 
         $manufacturer075 = new Manufacturer();
         $manufacturer075->clave = "281";
         $manufacturer075->descripcion = "HUNE";
         $manufacturer075->save();
 
-        $manufacturer076 = new Manufacturer();
-        $manufacturer076->clave = "289";
-        $manufacturer076->descripcion = "IDRALL";
-        $manufacturer076->save();
-
         $manufacturer077 = new Manufacturer();
         $manufacturer077->clave = "275";
         $manufacturer077->descripcion = "IMOU";
         $manufacturer077->save();
-
-        $manufacturer078 = new Manufacturer();
-        $manufacturer078->clave = "121";
-        $manufacturer078->descripcion = "INGRESSIO";
-        $manufacturer078->save();
 
         $manufacturer079 = new Manufacturer();
         $manufacturer079->clave = "32";
@@ -440,11 +320,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer080->clave = "131";
         $manufacturer080->descripcion = "INTELLINET";
         $manufacturer080->save();
-
-        $manufacturer081 = new Manufacturer();
-        $manufacturer081->clave = "255";
-        $manufacturer081->descripcion = "IVANTI";
-        $manufacturer081->save();
 
         $manufacturer082 = new Manufacturer();
         $manufacturer082->clave = "115";
@@ -466,11 +341,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer085->descripcion = "KONICA MINOLTA";
         $manufacturer085->save();
 
-        $manufacturer086 = new Manufacturer();
-        $manufacturer086->clave = "302";
-        $manufacturer086->descripcion = "KTC";
-        $manufacturer086->save();
-
         $manufacturer087 = new Manufacturer();
         $manufacturer087->clave = "262";
         $manufacturer087->descripcion = "LACIE";
@@ -491,20 +361,10 @@ class ManufacturersSeeder extends Seeder
         $manufacturer090->descripcion = "LG";
         $manufacturer090->save();
 
-        $manufacturer091 = new Manufacturer();
-        $manufacturer091->clave = "42";
-        $manufacturer091->descripcion = "LINKSYS";
-        $manufacturer091->save();
-
         $manufacturer092 = new Manufacturer();
         $manufacturer092->clave = "44";
         $manufacturer092->descripcion = "LOGITECH";
         $manufacturer092->save();
-
-        $manufacturer093 = new Manufacturer();
-        $manufacturer093->clave = "256";
-        $manufacturer093->descripcion = "LOGMEIN";
-        $manufacturer093->save();
 
         $manufacturer094 = new Manufacturer();
         $manufacturer094->clave = "109";
@@ -536,24 +396,10 @@ class ManufacturersSeeder extends Seeder
         $manufacturer099->descripcion = "MSI";
         $manufacturer099->save();
 
-        $manufacturer100 = new Manufacturer();
-        $manufacturer100->clave = "313";
-        $manufacturer100->descripcion = "MTV";
-
-        $manufacturer101 = new Manufacturer();
-        $manufacturer101->clave = "165";
-        $manufacturer101->descripcion = "MUESTRAS - GHIA";
-        $manufacturer101->save();
-
         $manufacturer102 = new Manufacturer();
         $manufacturer102->clave = "174";
         $manufacturer102->descripcion = "MULTIMEDIA SCREENS";
         $manufacturer102->save();
-
-        $manufacturer103 = new Manufacturer();
-        $manufacturer103->clave = "204";
-        $manufacturer103->descripcion = "MYBUSINESS POS";
-        $manufacturer103->save();
 
         $manufacturer104 = new Manufacturer();
         $manufacturer104->clave = "156";
@@ -564,11 +410,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer105->clave = "290";
         $manufacturer105->descripcion = "NET2PHONE";
         $manufacturer105->save();
-
-        $manufacturer106 = new Manufacturer();
-        $manufacturer106->clave = "194";
-        $manufacturer106->descripcion = "NEWLAND";
-        $manufacturer106->save();
 
         $manufacturer107 = new Manufacturer();
         $manufacturer107->clave = "135";
@@ -590,16 +431,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer110->descripcion = "OCELOT GAMING";
         $manufacturer110->save();
 
-        $manufacturer111 = new Manufacturer();
-        $manufacturer111->clave = "105";
-        $manufacturer111->descripcion = "OKIDATA";
-        $manufacturer111->save();
-
-        $manufacturer112 = new Manufacturer();
-        $manufacturer112->clave = "304";
-        $manufacturer112->descripcion = "OVERRATED";
-        $manufacturer112->save();
-
         $manufacturer113 = new Manufacturer();
         $manufacturer113->clave = "267";
         $manufacturer113->descripcion = "PANASONIC";
@@ -609,11 +440,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer114->clave = "146";
         $manufacturer114->descripcion = "PANASONIC EC";
         $manufacturer114->save();
-
-        $manufacturer115 = new Manufacturer();
-        $manufacturer115->clave = "254";
-        $manufacturer115->descripcion = "PANASONIC TOUGHBOOK";
-        $manufacturer115->save();
 
         $manufacturer116 = new Manufacturer();
         $manufacturer116->clave = "283";
@@ -635,16 +461,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer119->descripcion = "PERFECT CHOICE";
         $manufacturer119->save();
 
-        $manufacturer120 = new Manufacturer();
-        $manufacturer120->clave = "223";
-        $manufacturer120->descripcion = "PHILIPS";
-        $manufacturer120->save();
-
-        $manufacturer121 = new Manufacturer();
-        $manufacturer121->clave = "240";
-        $manufacturer121->descripcion = "PHOENIX CONTACT";
-        $manufacturer121->save();
-
         $manufacturer122 = new Manufacturer();
         $manufacturer122->clave = "79";
         $manufacturer122->descripcion = "PNY";
@@ -665,25 +481,10 @@ class ManufacturersSeeder extends Seeder
         $manufacturer125->descripcion = "QNAP";
         $manufacturer125->save();
 
-        $manufacturer126 = new Manufacturer();
-        $manufacturer126->clave = "244";
-        $manufacturer126->descripcion = "QTOUCH";
-        $manufacturer126->save();
-
         $manufacturer127 = new Manufacturer();
         $manufacturer127->clave = "215";
         $manufacturer127->descripcion = "QUARONI";
         $manufacturer127->save();
-
-        $manufacturer128 = new Manufacturer();
-        $manufacturer128->clave = "317";
-        $manufacturer128->descripcion = "READ HAT";
-        $manufacturer128->save();
-
-        $manufacturer129 = new Manufacturer();
-        $manufacturer129->clave = "270";
-        $manufacturer129->descripcion = "RICH VAGOS";
-        $manufacturer129->save();
 
         $manufacturer130 = new Manufacturer();
         $manufacturer130->clave = "55";
@@ -720,20 +521,10 @@ class ManufacturersSeeder extends Seeder
         $manufacturer136->descripcion = "SILIMEX";
         $manufacturer136->save();
 
-        $manufacturer137 = new Manufacturer();
-        $manufacturer137->clave = "59";
-        $manufacturer137->descripcion = "SMART CONTROL";
-        $manufacturer137->save();
-
         $manufacturer138 = new Manufacturer();
         $manufacturer138->clave = "178";
         $manufacturer138->descripcion = "SMARTBITT";
         $manufacturer138->save();
-
-        $manufacturer139 = new Manufacturer();
-        $manufacturer139->clave = "60";
-        $manufacturer139->descripcion = "SMC";
-        $manufacturer139->save();
 
         $manufacturer140 = new Manufacturer();
         $manufacturer140->clave = "107";
@@ -745,16 +536,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer141->descripcion = "SOLA BASIC ISB";
         $manufacturer141->save();
 
-        $manufacturer142 = new Manufacturer();
-        $manufacturer142->clave = "61";
-        $manufacturer142->descripcion = "SONY";
-        $manufacturer142->save();
-
-        $manufacturer143 = new Manufacturer();
-        $manufacturer143->clave = "72";
-        $manufacturer143->descripcion = "SPACE";
-        $manufacturer143->save();
-
         $manufacturer144 = new Manufacturer();
         $manufacturer144->clave = "316";
         $manufacturer144->descripcion = "START THE GAME";
@@ -765,16 +546,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer145->descripcion = "STARTECH.COM";
         $manufacturer145->save();
 
-        $manufacturer146 = new Manufacturer();
-        $manufacturer146->clave = "246";
-        $manufacturer146->descripcion = "STULZ";
-        $manufacturer146->save();
-
-        $manufacturer147 = new Manufacturer();
-        $manufacturer147->clave = "318";
-        $manufacturer147->descripcion = "SUSE";
-        $manufacturer147->save();
-
         $manufacturer148 = new Manufacturer();
         $manufacturer148->clave = "168";
         $manufacturer148->descripcion = "SYNOLOGY";
@@ -784,11 +555,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer149->clave = "63";
         $manufacturer149->descripcion = "TARGUS";
         $manufacturer149->save();
-
-        $manufacturer150 = new Manufacturer();
-        $manufacturer150->clave = "309";
-        $manufacturer150->descripcion = "TEAM VIEWER";
-        $manufacturer150->save();
 
         $manufacturer151 = new Manufacturer();
         $manufacturer151->clave = "81";
@@ -805,21 +571,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer153->descripcion = "TENDA";
         $manufacturer153->save();
 
-        $manufacturer154 = new Manufacturer();
-        $manufacturer154->clave = "219";
-        $manufacturer154->descripcion = "THERMALTAKE";
-        $manufacturer154->save();
-
-        $manufacturer155 = new Manufacturer();
-        $manufacturer155->clave = "238";
-        $manufacturer155->descripcion = "TOMI";
-        $manufacturer155->save();
-
-        $manufacturer156 = new Manufacturer();
-        $manufacturer156->clave = "65";
-        $manufacturer156->descripcion = "TOSHIBA";
-        $manufacturer156->save();
-
         $manufacturer157 = new Manufacturer();
         $manufacturer157->clave = "119";
         $manufacturer157->descripcion = "TP LINK";
@@ -834,31 +585,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer159->clave = "307";
         $manufacturer159->descripcion = "VANKYO";
         $manufacturer159->save();
-
-        $manufacturer160 = new Manufacturer();
-        $manufacturer160->clave = "70";
-        $manufacturer160->descripcion = "VARIOS";
-        $manufacturer160->save();
-
-        $manufacturer161 = new Manufacturer();
-        $manufacturer161->clave = "250";
-        $manufacturer161->descripcion = "VARIOS I";
-        $manufacturer161->save();
-
-        $manufacturer162 = new Manufacturer();
-        $manufacturer162->clave = "286";
-        $manufacturer162->descripcion = "VARIOS INC";
-        $manufacturer162->save();
-
-        $manufacturer163 = new Manufacturer();
-        $manufacturer163->clave = "308";
-        $manufacturer163->descripcion = "VEEAM";
-        $manufacturer163->save();
-
-        $manufacturer164 = new Manufacturer();
-        $manufacturer164->clave = "68";
-        $manufacturer164->descripcion = "VERBATIM";
-        $manufacturer164->save();
 
         $manufacturer165 = new Manufacturer();
         $manufacturer165->clave = "284";
@@ -880,11 +606,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer168->descripcion = "VIPER";
         $manufacturer168->save();
 
-        $manufacturer169 = new Manufacturer();
-        $manufacturer169->clave = "205";
-        $manufacturer169->descripcion = "VMWARE";
-        $manufacturer169->save();
-
         $manufacturer170 = new Manufacturer();
         $manufacturer170->clave = "314";
         $manufacturer170->descripcion = "VORAGO";
@@ -894,11 +615,6 @@ class ManufacturersSeeder extends Seeder
         $manufacturer171->clave = "169";
         $manufacturer171->descripcion = "WAM";
         $manufacturer171->save();
-
-        $manufacturer172 = new Manufacturer();
-        $manufacturer172->clave = "293";
-        $manufacturer172->descripcion = "WATERROOTS";
-        $manufacturer172->save();
 
         $manufacturer173 = new Manufacturer();
         $manufacturer173->clave = "128";

@@ -61,7 +61,7 @@ class ImportProductsByBrand extends Command
             $marcaNombre = $brandId;
         }
 
-        $url = "http://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?cliente=23400&marca={$marcaNombre}&porcentaje=30&subgpo=1&tc=1&MonedaPesos=1&tipo=1&depto=1&dt=1&dc=1&exist=4&promos=1&TipoProducto=1&trans=1&dimen=1&upc=1";
+        $url = "http://www.grupocva.com/catalogo_clientes_xml/lista_precios.xml?cliente=23400&marca={$marcaNombre}&porcentaje=30&subgpo=1&tc=1&MonedaPesos=1&tipo=1&depto=1&dt=1&dc=1&promos=1&TipoProducto=1&trans=1&dimen=1&upc=1";
 
         // dd($url);
         // dd($brandId);
@@ -109,7 +109,17 @@ class ImportProductsByBrand extends Command
                     'moneda' => (string) $item->moneda,
                     'ficha_tecnica' => self::nullIfEmpty((string) $item->ficha_tecnica),
                     'ficha_comercial' => self::nullIfEmpty((string) $item->ficha_comercial),
-                    'imagen_url' => self::nullIfEmpty((string) $item->imagen),
+
+                    'imagen_url' => (function($imagen) {
+                        $imagen = self::nullIfEmpty((string) $imagen);
+                        if ($imagen) {
+                            $filename = basename($imagen);
+                            return "https://me2.grupocva.com/me/imagen/200/" . $filename;
+                        }
+                        return null;
+                    })($item->imagen),
+
+                    // 'imagen_url' => self::nullIfEmpty((string) $item->imagen),
                     'existencia_cd' => (int) $item->disponibleCD ?: 0,
                     'tipo_cambio' => (float) $item->tipocambio ?: 0,
                     'fecha_tipo_cambio' => $this->convertirFechaATimestamp((string) $item->fechaactualizatipoc),

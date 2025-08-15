@@ -57,6 +57,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('productos', ProductController::class);
     Route::resource('clientes', ClientController::class);
     Route::resource('cotizaciones', QuoteController::class);
+
+    // Endpoints AJAX que devuelven JSON
+    Route::get('productos/get-grupos/{marca}', [ProductController::class, 'getGruposPorMarca'])
+        ->name('admin.productos.get-grupos');
+
+    Route::get('productos/get-subgrupos/{grupo}', [ProductController::class, 'getSubgruposPorGrupo'])
+        ->name('admin.productos.get-subgrupos');
 });
 
 require __DIR__.'/auth.php';

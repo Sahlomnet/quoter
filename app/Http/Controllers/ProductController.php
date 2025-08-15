@@ -14,82 +14,37 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // $products = Product::orderBy('id')->get(); // 100 productos por página
-        // return view('admin.productos.index', compact('products'));
+        $marcas = Manufacturer::orderBy('descripcion')->get();
+        $productos = Product::with(['manufacturer','group','subgroup'])->paginate(12);
 
-        // $query = Product::query();
-        
-        // Búsqueda por nombre o código
-        // if ($request->filled('search')) {
-        //     $search = $request->search;
-        //     $query->where(function($q) use ($search) {
-        //         $q->where('name', 'like', "%{$search}%")
-        //           ->orWhere('sku', 'like', "%{$search}%");
-        //     });
-        // }
+        return view('admin.productos.index', compact('marcas', 'productos'));
 
-        // Filtro por marca
-        // if ($request->filled('manufacturer_id')) {
-        //     $query->where('manufacturer_id', $request->manufacturer_id);
-        // }
+    }
 
-        // $products = $query->paginate(100);
-        // $manufacturers = Manufacturer::orderBy('descripcion')->get();
-        // // dd($manufacturers);
-        // return view('admin.productos.index', compact('products', 'manufacturers'));
-        $query = Product::query();
+        // GET /admin/productos/get-grupos/{marca}
+    public function getGruposPorMarca($marcaId)
+    {
+        $groupIds = Product::where('manufacturer_id', $marcaId)
+            ->whereNotNull('group_id')
+            ->distinct()
+            ->pluck('group_id');
 
-        // Búsqueda por nombre o código
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%");
-            });
-        }
+        $grupos = Group::whereIn('id', $groupIds)
+            ->orderBy('descripcion')
+            ->get(['id','descripcion']);
 
-        // Filtro por marca
-        if ($request->filled('manufacturer_id')) {
-            $query->where('manufacturer_id', $request->manufacturer_id);
-        }
+            dd($grupos);
+        return response()->json($grupos);
+    }
 
-        // Filtro por rango de precios
-        if ($request->filled('price_min')) {
-            $query->where('price', '>=', $request->price_min);
-        }
-        if ($request->filled('price_max')) {
-            $query->where('price', '<=', $request->price_max);
-        }
+    // GET /admin/productos/get-subgrupos/{grupo}
+    public function getSubgruposPorGrupo($grupoId)
+    {
+        $subgrupos = Subgroup::where('group_id', $grupoId)
+            ->orderBy('descripcion')
+            ->get(['id','descripcion']);
 
-        // Ordenamiento
-        if ($request->filled('sort')) {
-            switch ($request->sort) {
-                case 'price_asc':
-                    $query->orderBy('price', 'asc');
-                    break;
-                case 'price_desc':
-                    $query->orderBy('price', 'desc');
-                    break;
-                case 'name_asc':
-                    $query->orderBy('name', 'asc');
-                    break;
-                case 'name_desc':
-                    $query->orderBy('name', 'desc');
-                    break;
-                case 'date_desc':
-                    $query->orderBy('updated_at', 'desc');
-                    break;
-                case 'date_asc':
-                    $query->orderBy('updated_at', 'asc');
-                    break;
-            }
-        }
-
-        $products = $query->paginate(100);
-        $manufacturers = Manufacturer::orderBy('descripcion')->get();
-
-        return view('admin.productos.index', compact('products', 'manufacturers'));
-
+        return response()->json($subgrupos);
     }
 
     /**

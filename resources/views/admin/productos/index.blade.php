@@ -1,94 +1,128 @@
+{{-- Si usas AdminLTE --}}
 @extends('adminlte::page')
 
 @section('title', 'Productos')
 
 @section('content_header')
-    <h1>Lista de Productos</h1>
+    <h1>Productos</h1>
 @stop
 
 @section('content')
-<div class="card mb-3">
-    <div class="card-body">
-        <form method="GET" action="{{ route('productos.index') }}" class="form-inline flex-wrap">
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label>Marca</label>
+        <select id="marcaSelect" class="form-control">
+            <option value="">Seleccione una marca</option>
+            @foreach($marcas as $marca)
+                <option value="{{ $marca->id }}">{{ $marca->descripcion }}</option>
+            @endforeach
+        </select>
+    </div>
 
-            {{-- Buscador --}}
-            <div class="form-group mr-2 mb-2">
-                <input type="text" name="search" class="form-control" placeholder="Buscar por nombre o código"
-                       value="{{ request('search') }}">
-            </div>
+    <div class="col-md-4">
+        <label>Grupo</label>
+        <select id="grupoSelect" class="form-control" disabled>
+            <option value="">Seleccione un grupo</option>
+        </select>
+    </div>
 
-            {{-- Filtro por marca --}}
-            <div class="form-group mr-2 mb-2">
-                <select name="manufacturer_id" class="form-control">
-                    <option value="">-- Todas las marcas --</option>
-                    @foreach($manufacturers as $manufacturer)
-                        <option value="{{ $manufacturer->id }}"
-                            {{ request('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>
-                            {{ $manufacturer->descripcion }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Rango de precios --}}
-            <div class="form-group mr-2 mb-2">
-                <input type="number" name="price_min" class="form-control" placeholder="Precio mín."
-                       value="{{ request('price_min') }}">
-            </div>
-            <div class="form-group mr-2 mb-2">
-                <input type="number" name="price_max" class="form-control" placeholder="Precio máx."
-                       value="{{ request('price_max') }}">
-            </div>
-
-            {{-- Ordenamiento --}}
-            <div class="form-group mr-2 mb-2">
-                <select name="sort" class="form-control">
-                    <option value="">-- Ordenar por --</option>
-                    <option value="price_asc" {{ request('sort')=='price_asc' ? 'selected' : '' }}>Precio: Menor a Mayor</option>
-                    <option value="price_desc" {{ request('sort')=='price_desc' ? 'selected' : '' }}>Precio: Mayor a Menor</option>
-                    <option value="name_asc" {{ request('sort')=='name_asc' ? 'selected' : '' }}>Nombre: A-Z</option>
-                    <option value="name_desc" {{ request('sort')=='name_desc' ? 'selected' : '' }}>Nombre: Z-A</option>
-                </select>
-            </div>
-
-            {{-- Botones --}}
-            <div class="form-group mb-2">
-                <button type="submit" class="btn btn-primary mr-2">Aplicar</button>
-                <a href="{{ route('productos.index') }}" class="btn btn-secondary">Limpiar</a>
-            </div>
-
-        </form>
+    <div class="col-md-4">
+        <label>Subgrupo</label>
+        <select id="subgrupoSelect" class="form-control" disabled>
+            <option value="">Seleccione un subgrupo</option>
+        </select>
     </div>
 </div>
 
-{{-- Tarjetas de productos --}}
-<div class="row">
-    @forelse($products as $product)
+<div class="row" id="productosContainer">
+    @foreach($productos as $product)
         <div class="col-md-3">
-            <div class="card h-100">
-                <img src="{{ $product->imagen_url }}" 
-                     class="card-img-top" 
-                     alt="{{ $product->descripcion }}" 
-                     style="height: 200px; object-fit: cover;"
-                     onerror="this.onerror=null;this.src='{{ asset('img/noimage.png') }}';">
-
+            <div class="card mb-3 h-100">
+                <img src="{{ $product->imagen_url ?: asset('images/placeholder.jpg') }}"
+                     class="card-img-top"
+                     alt="{{ $product->descripcion }}"
+                     style="height:200px;object-fit:cover"
+                     onerror="this.onerror=null;this.src='{{ asset('images/placeholder.jpg') }}';">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ Str::limit($product->clave_cva, 40) }}</h5>
-                    <p class="card-text text-muted">{{ Str::limit($product->descripcion, 60) }}</p>
-                    <p class="text-bold text-success">${{ number_format($product->precio, 2) }}</p>
-                    <a href="#" class="btn btn-primary mt-auto">Ver más</a>
+                    <h6 class="card-title">{{ $product->descripcion }}</h6>
+                    <p class="text-success mt-auto mb-0">${{ number_format($product->precio, 2) }}</p>
                 </div>
             </div>
         </div>
-    @empty
-        <div class="col-12">
-            <p class="text-center">No se encontraron productos con esos filtros.</p>
-        </div>
-    @endforelse
+    @endforeach
 </div>
 
-{{-- Paginación --}}
-<div class="mt-3">
-    {{ $products->appends(request()->input())->links() }}
+<div class="mt-2">
+    {{ $productos->links() }}
 </div>
+@stop
+
+@section('js')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const marcaSelect    = document.getElementById('marcaSelect');
+    const grupoSelect    = document.getElementById('grupoSelect');
+    const subgrupoSelect = document.getElementById('subgrupoSelect');
+
+    // URLs base seguras (generadas por Blade con el prefijo /admin)
+    const gruposBaseUrl    = @json(url('admin/productos/get-grupos'));      // -> /admin/productos/get-grupos
+    const subgruposBaseUrl = @json(url('admin/productos/get-subgrupos'));   // -> /admin/productos/get-subgrupos
+
+    marcaSelect.addEventListener('change', async function () {
+        const marcaId = this.value;
+
+        // Reset dependientes
+        grupoSelect.innerHTML = '<option value="">Seleccione un grupo</option>';
+        subgrupoSelect.innerHTML = '<option value="">Seleccione un subgrupo</option>';
+        grupoSelect.disabled = true;
+        subgrupoSelect.disabled = true;
+
+        if (!marcaId) return;
+
+        try {
+            const resp = await fetch(`${gruposBaseUrl}/${marcaId}`, { credentials: 'same-origin' });
+            if (!resp.ok) throw new Error('Error cargando grupos');
+
+            const grupos = await resp.json();
+            grupos.forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g.id;
+                opt.textContent = g.descripcion;
+                grupoSelect.appendChild(opt);
+            });
+
+            grupoSelect.disabled = grupos.length === 0;
+        } catch (e) {
+            console.error(e);
+            alert('No se pudieron cargar los grupos.');
+        }
+    });
+
+    grupoSelect.addEventListener('change', async function () {
+        const grupoId = this.value;
+
+        subgrupoSelect.innerHTML = '<option value="">Seleccione un subgrupo</option>';
+        subgrupoSelect.disabled = true;
+        if (!grupoId) return;
+
+        try {
+            const resp = await fetch(`${subgruposBaseUrl}/${grupoId}`, { credentials: 'same-origin' });
+            if (!resp.ok) throw new Error('Error cargando subgrupos');
+
+            const subgrupos = await resp.json();
+            subgrupos.forEach(sg => {
+                const opt = document.createElement('option');
+                opt.value = sg.id;
+                opt.textContent = sg.descripcion;
+                subgrupoSelect.appendChild(opt);
+            });
+
+            subgrupoSelect.disabled = subgrupos.length === 0;
+        } catch (e) {
+            console.error(e);
+            alert('No se pudieron cargar los subgrupos.');
+        }
+    });
+});
+</script>
 @stop
