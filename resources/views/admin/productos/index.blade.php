@@ -1,128 +1,109 @@
-{{-- Si usas AdminLTE --}}
 @extends('adminlte::page')
 
-@section('title', 'Productos')
-
-@section('content_header')
-    <h1>Productos</h1>
-@stop
+@section('title', 'Catálogo de Productos')
 
 @section('content')
-<div class="row mb-3">
-    <div class="col-md-4">
-        <label>Marca</label>
-        <select id="marcaSelect" class="form-control">
-            <option value="">Seleccione una marca</option>
-            @foreach($marcas as $marca)
-                <option value="{{ $marca->id }}">{{ $marca->descripcion }}</option>
-            @endforeach
-        </select>
-    </div>
+<div class="container">
+    <h3>Catálogo de Productos</h3>
 
-    <div class="col-md-4">
-        <label>Grupo</label>
-        <select id="grupoSelect" class="form-control" disabled>
-            <option value="">Seleccione un grupo</option>
-        </select>
-    </div>
-
-    <div class="col-md-4">
-        <label>Subgrupo</label>
-        <select id="subgrupoSelect" class="form-control" disabled>
-            <option value="">Seleccione un subgrupo</option>
-        </select>
-    </div>
-</div>
-
-<div class="row" id="productosContainer">
-    @foreach($productos as $product)
-        <div class="col-md-3">
-            <div class="card mb-3 h-100">
-                <img src="{{ $product->imagen_url ?: asset('images/placeholder.jpg') }}"
-                     class="card-img-top"
-                     alt="{{ $product->descripcion }}"
-                     style="height:200px;object-fit:cover"
-                     onerror="this.onerror=null;this.src='{{ asset('images/placeholder.jpg') }}';">
-                <div class="card-body d-flex flex-column">
-                    <h6 class="card-title">{{ $product->descripcion }}</h6>
-                    <p class="text-success mt-auto mb-0">${{ number_format($product->precio, 2) }}</p>
-                </div>
-            </div>
+    <div class="row rounded mb-3 py-3 bg-primary">
+        <div class="col-md-4">
+            <!-- <label>Fabricante</label> -->
+            <select id="fabricante" class="form-control">
+                <option value="">Fabricante</option>
+                @foreach($marcas as $m)
+                    <option value="{{ $m->id }}">{{ $m->descripcion }}</option>
+                @endforeach
+            </select>
         </div>
-    @endforeach
-</div>
+        <div class="col-md-4">
+            <!-- <label>Grupo</label> -->
+            <select id="grupo" class="form-control">
+                <option value="">Grupo</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <!-- <label>Subgrupo</label> -->
+            <select id="subgrupo" class="form-control">
+                <option value="">Subgrupo</option>
+            </select>
+        </div>
+    </div>
 
-<div class="mt-2">
-    {{ $productos->links() }}
+    <div id="products-container" class="row">
+        @csrf
+    </div>
 </div>
 @stop
 
 @section('js')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const marcaSelect    = document.getElementById('marcaSelect');
-    const grupoSelect    = document.getElementById('grupoSelect');
-    const subgrupoSelect = document.getElementById('subgrupoSelect');
+    const gruposBaseUrl = "{{ url('admin/productos/get-grupos') }}";
+    const subgruposBaseUrl = "{{ url('admin/productos/get-subgrupos') }}";
+    const productosBaseUrl = "{{ route('admin.productos.get-productos') }}";
 
-    // URLs base seguras (generadas por Blade con el prefijo /admin)
-    const gruposBaseUrl    = @json(url('admin/productos/get-grupos'));      // -> /admin/productos/get-grupos
-    const subgruposBaseUrl = @json(url('admin/productos/get-subgrupos'));   // -> /admin/productos/get-subgrupos
-
-    marcaSelect.addEventListener('change', async function () {
-        const marcaId = this.value;
-
-        // Reset dependientes
-        grupoSelect.innerHTML = '<option value="">Seleccione un grupo</option>';
-        subgrupoSelect.innerHTML = '<option value="">Seleccione un subgrupo</option>';
-        grupoSelect.disabled = true;
-        subgrupoSelect.disabled = true;
-
+    document.getElementById('fabricante').addEventListener('change', async (e) => {
+        const marcaId = e.target.value;
+        document.getElementById('grupo').innerHTML = '<option value="">Grupo</option>';
+        document.getElementById('subgrupo').innerHTML = '<option value="">Subgrupo</option>';
         if (!marcaId) return;
 
-        try {
-            const resp = await fetch(`${gruposBaseUrl}/${marcaId}`, { credentials: 'same-origin' });
-            if (!resp.ok) throw new Error('Error cargando grupos');
+        const resp = await fetch(`${gruposBaseUrl}/${marcaId}`);
+        const data = await resp.json();
 
-            const grupos = await resp.json();
-            grupos.forEach(g => {
-                const opt = document.createElement('option');
-                opt.value = g.id;
-                opt.textContent = g.descripcion;
-                grupoSelect.appendChild(opt);
-            });
+        data.forEach(g => {
+            document.getElementById('grupo').innerHTML += `<option value="${g.id}">${g.descripcion}</option>`;
+        });
 
-            grupoSelect.disabled = grupos.length === 0;
-        } catch (e) {
-            console.error(e);
-            alert('No se pudieron cargar los grupos.');
-        }
+        loadProducts();
     });
 
-    grupoSelect.addEventListener('change', async function () {
-        const grupoId = this.value;
+    document.getElementById('grupo').addEventListener('change', async (e) => {
+        const grupoId = e.target.value;
+        document.getElementById('subgrupo').innerHTML = '<option value="">Subgrupo</option>';
+        if (!grupoId) { loadProducts(); return; }
 
-        subgrupoSelect.innerHTML = '<option value="">Seleccione un subgrupo</option>';
-        subgrupoSelect.disabled = true;
-        if (!grupoId) return;
+        const resp = await fetch(`${subgruposBaseUrl}/${grupoId}`);
+        const data = await resp.json();
 
+        data.forEach(sg => {
+            document.getElementById('subgrupo').innerHTML += `<option value="${sg.id}">${sg.descripcion}</option>`;
+        });
+
+        loadProducts();
+    });
+
+    document.getElementById('subgrupo').addEventListener('change', loadProducts);
+
+    async function loadProducts() {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         try {
-            const resp = await fetch(`${subgruposBaseUrl}/${grupoId}`, { credentials: 'same-origin' });
-            if (!resp.ok) throw new Error('Error cargando subgrupos');
+            const fabricante = document.getElementById('fabricante').value;
+            const grupo = document.getElementById('grupo').value;
+            const subgrupo = document.getElementById('subgrupo').value;
 
-            const subgrupos = await resp.json();
-            subgrupos.forEach(sg => {
-                const opt = document.createElement('option');
-                opt.value = sg.id;
-                opt.textContent = sg.descripcion;
-                subgrupoSelect.appendChild(opt);
+            const url = new URL(productosBaseUrl);
+
+            if (fabricante) url.searchParams.append('manufacturer_id', fabricante);
+            if (grupo) url.searchParams.append('group_id', grupo);
+            if (subgrupo) url.searchParams.append('subgroup_id', subgrupo);
+
+            const resp = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
             });
 
-            subgrupoSelect.disabled = subgrupos.length === 0;
-        } catch (e) {
-            console.error(e);
-            alert('No se pudieron cargar los subgrupos.');
+            const data = await resp.json();
+            document.getElementById('products-container').innerHTML = data.html;
+
+        } catch (error) {
+            console.error("Error en loadProducts:", error);
         }
-    });
+    }
 });
 </script>
 @stop

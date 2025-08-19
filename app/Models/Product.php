@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'products'; // <-- asegúrate que está bien
     protected $fillable = [
         'clave_cva',
         'upc',

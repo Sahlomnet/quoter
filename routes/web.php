@@ -51,6 +51,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    // Endpoints AJAX que devuelven JSON
+    Route::get('productos/get-grupos/{marca}', [ProductController::class, 'getGruposPorMarca'])
+        ->name('admin.productos.get-grupos');
+
+    Route::get('productos/get-subgrupos/{grupo}', [ProductController::class, 'getSubgruposPorGrupo'])
+        ->name('admin.productos.get-subgrupos');
+
+    Route::get('productos/get-productos', [ProductController::class, 'getProductos'])
+        ->name('admin.productos.get-productos');
+    
     Route::resource('marcas', ManufacturerController::class);
     Route::resource('grupos', GroupController::class);
     Route::resource('subgrupos', SubgroupController::class);
@@ -58,12 +68,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('clientes', ClientController::class);
     Route::resource('cotizaciones', QuoteController::class);
 
-    // Endpoints AJAX que devuelven JSON
-    Route::get('productos/get-grupos/{marca}', [ProductController::class, 'getGruposPorMarca'])
-        ->name('admin.productos.get-grupos');
 
-    Route::get('productos/get-subgrupos/{grupo}', [ProductController::class, 'getSubgruposPorGrupo'])
-        ->name('admin.productos.get-subgrupos');
 });
 
 require __DIR__.'/auth.php';
